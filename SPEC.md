@@ -188,28 +188,40 @@ Both LLM tasks use the Anthropic Python SDK against the Claude API.
 2. **Talk boundaries.** Confirm v1 uses a user-provided time range (vs inferring
    from silence gaps, or mapping to Bee's own conversation boundaries if Bee
    already segments the day).
-3. **Clock offset.** Manual offset only in v1, or attempt auto-estimation (e.g.
+   Answer: Bee's conversation boundaries and silence gaps
+4. **Clock offset.** Manual offset only in v1, or attempt auto-estimation (e.g.
    ask the user to photograph the first slide as the speaker starts, or align on
    a known event)? How much drift do you actually see between phone and Bee?
-4. **Matching tolerance.** What default window (±30s? ±2min?) and what should
+   Answer: Auto-estimation allowing a drift 30 seconds
+6. **Matching tolerance.** What default window (±30s? ±2min?) and what should
    happen to photos outside it — dropped, flagged "unplaced", or attached to the
    nearest segment regardless?
-5. **Placement granularity.** Embed at the exact transcript line, or just bucket
+   Answer: flagged as unplaced so I can decide where they are relevant.
+8. **Placement granularity.** Embed at the exact transcript line, or just bucket
    photos into the talk for the summary to draw from? (Draft does exact-line with
    an unplaced fallback.)
-6. **Slide extraction depth.** OCR-style text only, or also interpret
+   Answer: Draft does exact-line with option to move to where it should be or removed to unplaced fallback.
+  
+9. **Slide extraction depth.** OCR-style text only, or also interpret
    charts/diagrams in prose? (Draft does both.) Should non-slide photos (people,
    rooms) be extracted or skipped?
-7. **Summary format & export.** Markdown, HTML, or both? Where do exported
+   Answer: Both text and charts for applicable photos. Other photos such as people and rooms can be skipped.
+10. **Summary format & export.** Markdown, HTML, or both? Where do exported
    summaries go, and is "share" just handing over the file, or something richer
    later?
-8. **Bee API specifics.** Does the Bee API expose per-utterance timestamps (or
+    Answer: HTML
+12. **Bee API specifics.** Does the Bee API expose per-utterance timestamps (or
    only whole-conversation times)? Does it already segment the day into
    conversations we can reuse as talk candidates? (Affects FR1/FR3.)
-9. **Google Photos scope.** Read-only access is enough? Any need to filter to a
+Answer: Give me a toggle to turn it off or on.
+14. **Google Photos scope.** Read-only access is enough? Any need to filter to a
    specific album, or is a time-range query over the whole library fine?
-10. **Model choice & cost.** Opus 4.8 everywhere, or Sonnet 5 for slide OCR and
+Answer: read-only access and time-range over whole library
+16. **Model choice & cost.** Opus 4.8 everywhere, or Sonnet 5 for slide OCR and
     Opus 4.8 only for the final summary? Any monthly cost ceiling to design
     around?
-11. **Search.** Is local full-text search (SQLite FTS) sufficient, or do you want
+    Answer: Sonnet 5 for everything
+18. **Search.** Is local full-text search (SQLite FTS) sufficient, or do you want
     semantic/embedding search across talks?
+    Answer: Add semantic/embedding search
+    
