@@ -185,7 +185,8 @@ Both LLM tasks use the Anthropic Python SDK against the Claude API.
 
 1. **Interface split.** CLI-only, CLI + local web viewer, or a local web app for
    everything? (Draft assumes CLI + lightweight local viewer.)
-2. **Talk boundaries.** Confirm v1 uses a user-provided time range (vs inferring
+   Answer: local web app for everything
+3. **Talk boundaries.** Confirm v1 uses a user-provided time range (vs inferring
    from silence gaps, or mapping to Bee's own conversation boundaries if Bee
    already segments the day).
    Answer: Bee's conversation boundaries and silence gaps
